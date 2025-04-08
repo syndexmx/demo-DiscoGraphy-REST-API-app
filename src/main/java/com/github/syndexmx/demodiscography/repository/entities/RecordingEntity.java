@@ -14,6 +14,9 @@ import java.util.List;
 @Builder
 @Data
 @Table(name = "recordings")
+@NamedEntityGraph(name = "recording_entity-graph", attributeNodes = {
+        @NamedAttributeNode("song"), @NamedAttributeNode("artistList"), @NamedAttributeNode("groupList")})
+
 public class RecordingEntity {
 
     @Id

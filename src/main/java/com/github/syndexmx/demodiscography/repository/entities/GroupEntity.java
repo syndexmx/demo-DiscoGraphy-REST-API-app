@@ -13,6 +13,7 @@ import java.util.List;
 @Builder
 @Data
 @Table(name = "groups")
+@NamedEntityGraph(name = "group_entity-graph", attributeNodes = @NamedAttributeNode("artistsList"))
 public class GroupEntity {
 
     @Id

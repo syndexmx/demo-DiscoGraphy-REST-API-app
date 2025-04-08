@@ -14,12 +14,12 @@ import java.util.List;
 public class ArtistDto {
 
     private Long id;
-    private String secondName;
-    private String birthDate;
-    private String firstName;
     private String name;
-    private String birthPlace;
+    private String firstName;
+    private String secondName;
     private String lastName;
     private String sex;
+    private String birthDate;
+    private String birthPlace;
 
 }
