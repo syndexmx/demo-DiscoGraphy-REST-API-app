@@ -6,6 +6,7 @@ import com.github.syndexmx.demodiscography.domain.AlbumTestSupplierKit;
 import com.github.syndexmx.demodiscography.repository.entities.AlbumEntity;
 import com.github.syndexmx.demodiscography.repository.mappers.AlbumEntityMapper;
 import com.github.syndexmx.demodiscography.repository.repositories.AlbumRepository;
+import com.github.syndexmx.demodiscography.services.impl.AlbumServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Long;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -64,9 +64,9 @@ public class AlbumServiceImplTest {
     public void testThatFindByIdReturnsEntityWhenPresent() {
         final Album album = AlbumTestSupplierKit.getTestAlbum();
         final AlbumEntity albumEntity = AlbumEntityMapper.map(album);
-        final Long idString = album.getId();
-        when(albumRepository.findById(eq(idString))).thenReturn(Optional.of(albumEntity));
-        final Optional<Album> foundAlbum = underTest.findById(idString);
+        final Long id = album.getId();
+        when(albumRepository.findById(eq(id))).thenReturn(Optional.of(albumEntity));
+        final Optional<Album> foundAlbum = underTest.findById(id);
         assertEquals(Optional.of(album), foundAlbum);
     }
 
@@ -99,9 +99,9 @@ public class AlbumServiceImplTest {
     @Test
     public void testThatIsPresentReturnsTrueWhenExists() {
         final Album album = AlbumTestSupplierKit.getTestAlbum();
-        final Long idString = album.getId();
-        when(albumRepository.existsById(idString)).thenReturn(true);
-        boolean result = underTest.isPresent(idString);
+        final Long id = album.getId();
+        when(albumRepository.existsById(id)).thenReturn(true);
+        boolean result = underTest.isPresent(id);
         assertTrue(result);
     }
 
@@ -116,8 +116,8 @@ public class AlbumServiceImplTest {
     @Test
     public void testThatAlbumIsPresentReturnsTrueWhenExists() {
         final Album album = AlbumTestSupplierKit.getTestAlbum();
-        final String idString = album.getId().toString();
-        when(albumRepository.existsById(Long.fromString(idString))).thenReturn(true);
+        final Long id = album.getId();
+        when(albumRepository.existsById(id)).thenReturn(true);
         boolean result = underTest.isPresent(album);
         assertTrue(result);
     }
@@ -125,8 +125,8 @@ public class AlbumServiceImplTest {
     @Test
     public void testThatDeleteAlbumDeletesAlbum() {
         final Album album = AlbumTestSupplierKit.getTestAlbum();
-        final Long idString = album.getId();
-        underTest.deleteById(idString);
-        verify(albumRepository).deleteById(eq(idString));
+        final Long id = album.getId();
+        underTest.deleteById(id);
+        verify(albumRepository).deleteById(eq(id));
     }
 }

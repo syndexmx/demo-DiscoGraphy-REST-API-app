@@ -6,6 +6,7 @@ import com.github.syndexmx.demodiscography.domain.RecordingTestSupplierKit;
 import com.github.syndexmx.demodiscography.repository.entities.RecordingEntity;
 import com.github.syndexmx.demodiscography.repository.mappers.RecordingEntityMapper;
 import com.github.syndexmx.demodiscography.repository.repositories.RecordingRepository;
+import com.github.syndexmx.demodiscography.services.impl.RecordingServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Long;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -64,9 +64,9 @@ public class RecordingServiceImplTest {
     public void testThatFindByIdReturnsEntityWhenPresent() {
         final Recording recording = RecordingTestSupplierKit.getTestRecording();
         final RecordingEntity recordingEntity = RecordingEntityMapper.map(recording);
-        final Long idString = recording.getId();
-        when(recordingRepository.findById(eq(idString))).thenReturn(Optional.of(recordingEntity));
-        final Optional<Recording> foundRecording = underTest.findById(idString);
+        final Long id = recording.getId();
+        when(recordingRepository.findById(eq(id))).thenReturn(Optional.of(recordingEntity));
+        final Optional<Recording> foundRecording = underTest.findById(id);
         assertEquals(Optional.of(recording), foundRecording);
     }
 
@@ -99,9 +99,9 @@ public class RecordingServiceImplTest {
     @Test
     public void testThatIsPresentReturnsTrueWhenExists() {
         final Recording recording = RecordingTestSupplierKit.getTestRecording();
-        final Long idString = recording.getId();
-        when(recordingRepository.existsById(idString)).thenReturn(true);
-        boolean result = underTest.isPresent(idString);
+        final Long id = recording.getId();
+        when(recordingRepository.existsById(id)).thenReturn(true);
+        boolean result = underTest.isPresent(id);
         assertTrue(result);
     }
 
@@ -116,8 +116,8 @@ public class RecordingServiceImplTest {
     @Test
     public void testThatRecordingIsPresentReturnsTrueWhenExists() {
         final Recording recording = RecordingTestSupplierKit.getTestRecording();
-        final String idString = recording.getId().toString();
-        when(recordingRepository.existsById(Long.fromString(idString))).thenReturn(true);
+        final Long id = recording.getId();
+        when(recordingRepository.existsById(id)).thenReturn(true);
         boolean result = underTest.isPresent(recording);
         assertTrue(result);
     }
@@ -125,8 +125,8 @@ public class RecordingServiceImplTest {
     @Test
     public void testThatDeleteRecordingDeletesRecording() {
         final Recording recording = RecordingTestSupplierKit.getTestRecording();
-        final Long idString = recording.getId();
-        underTest.deleteById(idString);
-        verify(recordingRepository).deleteById(eq(idString));
+        final Long id = recording.getId();
+        underTest.deleteById(id);
+        verify(recordingRepository).deleteById(eq(id));
     }
 }

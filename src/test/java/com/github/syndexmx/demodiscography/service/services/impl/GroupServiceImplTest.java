@@ -6,6 +6,7 @@ import com.github.syndexmx.demodiscography.domain.GroupTestSupplierKit;
 import com.github.syndexmx.demodiscography.repository.entities.GroupEntity;
 import com.github.syndexmx.demodiscography.repository.mappers.GroupEntityMapper;
 import com.github.syndexmx.demodiscography.repository.repositories.GroupRepository;
+import com.github.syndexmx.demodiscography.services.impl.GroupServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Long;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -64,9 +64,9 @@ public class GroupServiceImplTest {
     public void testThatFindByIdReturnsEntityWhenPresent() {
         final Group group = GroupTestSupplierKit.getTestGroup();
         final GroupEntity groupEntity = GroupEntityMapper.map(group);
-        final Long idString = group.getId();
-        when(groupRepository.findById(eq(idString))).thenReturn(Optional.of(groupEntity));
-        final Optional<Group> foundGroup = underTest.findById(idString);
+        final Long id = group.getId();
+        when(groupRepository.findById(eq(id))).thenReturn(Optional.of(groupEntity));
+        final Optional<Group> foundGroup = underTest.findById(id);
         assertEquals(Optional.of(group), foundGroup);
     }
 
@@ -99,9 +99,9 @@ public class GroupServiceImplTest {
     @Test
     public void testThatIsPresentReturnsTrueWhenExists() {
         final Group group = GroupTestSupplierKit.getTestGroup();
-        final Long idString = group.getId();
-        when(groupRepository.existsById(idString)).thenReturn(true);
-        boolean result = underTest.isPresent(idString);
+        final Long id = group.getId();
+        when(groupRepository.existsById(id)).thenReturn(true);
+        boolean result = underTest.isPresent(id);
         assertTrue(result);
     }
 
@@ -116,8 +116,8 @@ public class GroupServiceImplTest {
     @Test
     public void testThatGroupIsPresentReturnsTrueWhenExists() {
         final Group group = GroupTestSupplierKit.getTestGroup();
-        final String idString = group.getId().toString();
-        when(groupRepository.existsById(Long.fromString(idString))).thenReturn(true);
+        final Long id = group.getId();
+        when(groupRepository.existsById(id)).thenReturn(true);
         boolean result = underTest.isPresent(group);
         assertTrue(result);
     }
@@ -125,8 +125,8 @@ public class GroupServiceImplTest {
     @Test
     public void testThatDeleteGroupDeletesGroup() {
         final Group group = GroupTestSupplierKit.getTestGroup();
-        final Long idString = group.getId();
-        underTest.deleteById(idString);
-        verify(groupRepository).deleteById(eq(idString));
+        final Long id = group.getId();
+        underTest.deleteById(id);
+        verify(groupRepository).deleteById(eq(id));
     }
 }

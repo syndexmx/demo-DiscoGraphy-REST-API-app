@@ -16,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Long;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -65,9 +64,9 @@ public class SongServiceImplTest {
     public void testThatFindByIdReturnsEntityWhenPresent() {
         final Song song = SongTestSupplierKit.getTestSong();
         final SongEntity songEntity = SongEntityMapper.map(song);
-        final Long idString = song.getId();
-        when(songRepository.findById(eq(idString))).thenReturn(Optional.of(songEntity));
-        final Optional<Song> foundSong = underTest.findById(idString);
+        final Long id = song.getId();
+        when(songRepository.findById(eq(id))).thenReturn(Optional.of(songEntity));
+        final Optional<Song> foundSong = underTest.findById(id);
         assertEquals(Optional.of(song), foundSong);
     }
 
@@ -100,9 +99,9 @@ public class SongServiceImplTest {
     @Test
     public void testThatIsPresentReturnsTrueWhenExists() {
         final Song song = SongTestSupplierKit.getTestSong();
-        final Long idString = song.getId();
-        when(songRepository.existsById(idString)).thenReturn(true);
-        boolean result = underTest.isPresent(idString);
+        final Long id = song.getId();
+        when(songRepository.existsById(id)).thenReturn(true);
+        boolean result = underTest.isPresent(id);
         assertTrue(result);
     }
 
@@ -117,8 +116,8 @@ public class SongServiceImplTest {
     @Test
     public void testThatSongIsPresentReturnsTrueWhenExists() {
         final Song song = SongTestSupplierKit.getTestSong();
-        final String idString = song.getId().toString();
-        when(songRepository.existsById(Long.fromString(idString))).thenReturn(true);
+        final Long id = song.getId();
+        when(songRepository.existsById(id)).thenReturn(true);
         boolean result = underTest.isPresent(song);
         assertTrue(result);
     }
@@ -126,8 +125,8 @@ public class SongServiceImplTest {
     @Test
     public void testThatDeleteSongDeletesSong() {
         final Song song = SongTestSupplierKit.getTestSong();
-        final Long idString = song.getId();
-        underTest.deleteById(idString);
-        verify(songRepository).deleteById(eq(idString));
+        final Long id = song.getId();
+        underTest.deleteById(id);
+        verify(songRepository).deleteById(eq(id));
     }
 }

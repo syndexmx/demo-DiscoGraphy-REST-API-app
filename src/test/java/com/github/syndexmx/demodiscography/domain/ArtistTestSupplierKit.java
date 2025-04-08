@@ -1,44 +1,46 @@
 package com.github.syndexmx.demodiscography.domain;
 
-
-
 import com.github.syndexmx.demodiscography.domain.enums.Sex;
 
-import java.util.List;
-import java.util.Long;
-
+import java.time.LocalDate;
+import java.util.Random;
 
 public class ArtistTestSupplierKit {
 
-    private static Long id = Long.randomLong();
-
-    private static Sex artist_FIELD_VALUE = Sex.DEFAULTVALUE;
-    private static Sex artist_STRING_MODIFIED = Sex.ALTERNATIVEVALUE;
+    private static Random random = new Random();
+    private static Long id = random.nextLong();
 
     public static Artist getTestArtist() {
         return Artist.builder()
                 .id(id)
-                .sexList(List.of())
-                .sex(artist_FIELD_VALUE)
+                .name("Freddie Mercury")
+                .firstName("Farrokh")
+                .secondName("")
+                .lastName("Bulsara")
+                .birthDate(LocalDate.parse("1946-09-05"))
+                .birthPlace("Zanzibar")
+                .sex(Sex.MALE)
                 .build();
     }
 
     public static Artist getModifiedTestArtist() {
         return Artist.builder()
                 .id(id)
-                .sex(artist_STRING_MODIFIED)
-                .sexList(List.of())
+                .name("Freddie Mercury")
+                .firstName("Farrokh")
+                .secondName("Freddie Mercury")
+                .lastName("Bulsara")
+                .birthDate(LocalDate.parse("1946-09-05"))
+                .birthPlace("Zanzibar")
+                .sex(Sex.MALE)
                 .build();
     }
 
-    private static Long NON_EXISTENT_Long = Long.randomLong();
-    private static Sex NON_EXISTANT_VALUE = Sex.OTHERVALUE;
+    private static Long NON_EXISTENT_Long = random.nextLong();
 
     public static Artist getTestNonExistentArtist( ) {
         return Artist.builder()
                 .id(NON_EXISTENT_Long)
-                .sex(NON_EXISTANT_VALUE)
-                .sexList(List.of())
                 .build();
     }
 

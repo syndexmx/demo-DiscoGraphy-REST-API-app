@@ -6,6 +6,7 @@ import com.github.syndexmx.demodiscography.domain.ArtistTestSupplierKit;
 import com.github.syndexmx.demodiscography.repository.entities.ArtistEntity;
 import com.github.syndexmx.demodiscography.repository.mappers.ArtistEntityMapper;
 import com.github.syndexmx.demodiscography.repository.repositories.ArtistRepository;
+import com.github.syndexmx.demodiscography.services.impl.ArtistServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Long;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -64,9 +64,9 @@ public class ArtistServiceImplTest {
     public void testThatFindByIdReturnsEntityWhenPresent() {
         final Artist artist = ArtistTestSupplierKit.getTestArtist();
         final ArtistEntity artistEntity = ArtistEntityMapper.map(artist);
-        final Long idString = artist.getId();
-        when(artistRepository.findById(eq(idString))).thenReturn(Optional.of(artistEntity));
-        final Optional<Artist> foundArtist = underTest.findById(idString);
+        final Long id = artist.getId();
+        when(artistRepository.findById(eq(id))).thenReturn(Optional.of(artistEntity));
+        final Optional<Artist> foundArtist = underTest.findById(id);
         assertEquals(Optional.of(artist), foundArtist);
     }
 
@@ -99,9 +99,9 @@ public class ArtistServiceImplTest {
     @Test
     public void testThatIsPresentReturnsTrueWhenExists() {
         final Artist artist = ArtistTestSupplierKit.getTestArtist();
-        final Long idString = artist.getId();
-        when(artistRepository.existsById(idString)).thenReturn(true);
-        boolean result = underTest.isPresent(idString);
+        final Long id = artist.getId();
+        when(artistRepository.existsById(id)).thenReturn(true);
+        boolean result = underTest.isPresent(id);
         assertTrue(result);
     }
 
@@ -116,8 +116,8 @@ public class ArtistServiceImplTest {
     @Test
     public void testThatArtistIsPresentReturnsTrueWhenExists() {
         final Artist artist = ArtistTestSupplierKit.getTestArtist();
-        final String idString = artist.getId().toString();
-        when(artistRepository.existsById(Long.fromString(idString))).thenReturn(true);
+        final Long id = artist.getId();
+        when(artistRepository.existsById(id)).thenReturn(true);
         boolean result = underTest.isPresent(artist);
         assertTrue(result);
     }
@@ -125,8 +125,8 @@ public class ArtistServiceImplTest {
     @Test
     public void testThatDeleteArtistDeletesArtist() {
         final Artist artist = ArtistTestSupplierKit.getTestArtist();
-        final Long idString = artist.getId();
-        underTest.deleteById(idString);
-        verify(artistRepository).deleteById(eq(idString));
+        final Long id = artist.getId();
+        underTest.deleteById(id);
+        verify(artistRepository).deleteById(eq(id));
     }
 }
