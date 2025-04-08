@@ -15,6 +15,10 @@ public class GroupTestSupplierKit {
     public static Group getTestGroup() {
         return Group.builder()
                 .id(id)
+                .name("Queen")
+                .place("London")
+                .synonym("The Queen")
+                .year(1970)
                 .artistsList(List.of())
                 .build();
     }
@@ -22,6 +26,11 @@ public class GroupTestSupplierKit {
     public static Group getModifiedTestGroup() {
         return Group.builder()
                 .id(id)
+                .name("Queen")
+                .place("London, UK")
+                .synonym("The Queen")
+                .year(1970)
+                .artistsList(List.of())
                 .artistsList(List.of())
                 .build();
     }

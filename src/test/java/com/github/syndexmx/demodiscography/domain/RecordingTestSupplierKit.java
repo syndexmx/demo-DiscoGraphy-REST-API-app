@@ -15,6 +15,11 @@ public class RecordingTestSupplierKit {
     public static Recording getTestRecording() {
         return Recording.builder()
                 .id(id)
+                .song(SongTestSupplierKit.getTestSong())
+                .place("Switzeland, Montreux")
+                .studio("Mountain")
+                .length(4 * 60 + 31)
+                .artistList(List.of())
                 .artistList(List.of())
                 .build();
     }
@@ -22,6 +27,10 @@ public class RecordingTestSupplierKit {
     public static Recording getModifiedTestRecording() {
         return Recording.builder()
                 .id(id)
+                .song(SongTestSupplierKit.getTestSong())
+                .place("Montreux, Switzeland")
+                .studio("Mountain")
+                .length(4 * 60 + 31)
                 .artistList(List.of())
                 .build();
     }

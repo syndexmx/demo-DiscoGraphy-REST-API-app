@@ -14,6 +14,9 @@ public class SongTestSupplierKit {
     public static Song getTestSong() {
         return Song.builder()
                 .id(id)
+                .title("The Show Must Go On")
+                .year(1991)
+                .synonym("Show must go on")
                 .authoursList(List.of())
                 .build();
     }
@@ -21,6 +24,9 @@ public class SongTestSupplierKit {
     public static Song getModifiedTestSong() {
         return Song.builder()
                 .id(id)
+                .title("The Show Must Go On")
+                .year(1991)
+                .synonym("Show Must Go On")
                 .authoursList(List.of())
                 .build();
     }

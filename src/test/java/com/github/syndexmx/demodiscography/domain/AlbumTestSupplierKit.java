@@ -14,6 +14,10 @@ public class AlbumTestSupplierKit {
     public static Album getTestAlbum() {
         return Album.builder()
                 .id(id)
+                .recordingList(List.of())
+                .groupList(List.of())
+                .title("Innuendo")
+                .year(1991)
                 .artistList(List.of())
                 .build();
     }
@@ -22,6 +26,10 @@ public class AlbumTestSupplierKit {
         return Album.builder()
                 .id(id)
                 .recordingList(List.of())
+                .groupList(List.of())
+                .title("Night at the Musium")
+                .year(1975)
+                .artistList(List.of())
                 .build();
     }
 
